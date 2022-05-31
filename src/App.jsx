@@ -1,28 +1,88 @@
-import React from "react";
-import {Posts} from './components/Posts'
+import React from 'react';
 
+// don't change the Component name "App"
+export default class App extends React.Component {
+  constructor(props) {
+    super(props)
+      this.state = {
+        email: '',
+        isAgreeWithTerms: false,
+    };
+  }
+    handleChange = (event) => {
+this.setState({[event.target.name]: event.target.value})
+    }
+     validateEmail = () => {
+        if ( !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email))
+  {
+    alert('invalid email')
+        } 
+     }
+     handleCheckboxChange = (event) => {
+    this.setState({[event.target.name]: event.target.checked})
+     }
+  handleSubmit = () => {
+    if (!this.state.isAgreeWithTerms) {
+      alert('you should accept all agreements')
+      return
+    }
+    alert('thank you for your subscription')
+  }
+  
+  render() {
+    
+    // TODO: implement component
+    const { email, isAgreeWithTerms } = this.state;
 
-class App extends React.Component {
-  state = {
-    posts: [
-     {id:'abc1', name: 'JS Basis'},
-     {id:'abc2', name: 'JS Advanced'},
-     {id:'abc3', name: 'React JS'}
-   ]
+    
+
+        return (
+            <div>
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="email"
+              value={email}
+              onChange={this.handleChange}
+              onBlur={this.validateEmail}
+                />
+                <br />
+                <label>
+                    <input
+                        type="checkbox"
+                        name="isAgreeWithTerms"
+                checked={isAgreeWithTerms}
+                onChange={this.handleCheckboxChange}
+                    />
+                    I agree with terms and conditions
+                </label>
+                <br />
+                <button onClick={this.handleSubmit}>Send</button>
+            </div>
+        );
   }
-  removePost = (id) => {
-    this.setState({posts: this.state.posts.filter(post => post.id !== id)})
-    // console.log('App.jsx setState update')
-  }
+}
+// class App extends React.Component {
+//   state = {
+//     posts: [
+//      {id:'abc1', name: 'JS Basis'},
+//      {id:'abc2', name: 'JS Advanced'},
+//      {id:'abc3', name: 'React JS'}
+//    ]
+//   }
+//   removePost = (id) => {
+//     this.setState({posts: this.state.posts.filter(post => post.id !== id)})
+//     // console.log('App.jsx setState update')
+//   }
 
  
-  render() {
-     const { posts } = this.state
-    return (
-      <Posts posts={posts} removePost={ this.removePost}/>
-        );
-    }
-}
+//   render() {
+//      const { posts } = this.state
+//     return (
+//       <Posts posts={posts} removePost={ this.remove}/>
+//         );
+//     }
+// }
 // class App extends React.Component {
 //   state = {
 //     posts: [
@@ -213,4 +273,4 @@ class App extends React.Component {
 
 // }
 
-export default App;
+// export default App;
