@@ -1,61 +1,100 @@
 import React from "react";
+import {Posts} from './components/Posts'
 
 
 class App extends React.Component {
-    state = {
-        count: 0,
-        isCounting: false,
-    };
-  handleStart = () => {this.timerId = setInterval(() => {
-    this.setState((prevState) => ({ count: prevState.count + 1, isCounting: true }),)
-  }, 1000)}
-  
-  handleStop = () => {
-    clearInterval(this.timerId);
-    this.setState({isCounting: false})
+  state = {
+    posts: [
+     {id:'abc1', name: 'JS Basis'},
+     {id:'abc2', name: 'JS Advanced'},
+     {id:'abc3', name: 'React JS'}
+   ]
   }
-  handleReset = () => {
-    this.setState({ count: 0, isCounting: false });
-     clearInterval(this.timerId);
+  removePost = (id) => {
+    this.setState({posts: this.state.posts.filter(post => post.id !== id)})
+    // console.log('App.jsx setState update')
+  }
+
  
-  }
-  componentDidMount() {
-    let data = localStorage.getItem('count')
-  
-    if (data) {
-       this.setState({ count: +data })
-       console.log(data)
-    }
-   
-    
-  }
-  
-
-  componentDidUpdate() {
-    localStorage.setItem('count', `${this.state.count}`)
-      
-    }
-
-  componentWillUnmount() {
-    clearInterval(this.timerId);
-    
-    }
-
-    render() {
-        return (
-            <div className="App">
-                <h1>React Timer</h1>
-                <h3>{this.state.count}</h3>
-                {!this.state.isCounting ? (
-                    <button onClick={this.handleStart}>Start</button>
-                ) : (
-                    <button onClick={this.handleStop}>Stop</button>
-                )}
-                <button onClick={this.handleReset}>Reset</button>
-            </div>
+  render() {
+     const { posts } = this.state
+    return (
+      <Posts posts={posts} removePost={ this.removePost}/>
         );
     }
 }
+// class App extends React.Component {
+//   state = {
+//     posts: [
+//      {id:'abc1', name: 'JS Basis'},
+//      {id:'abc2', name: 'JS Advanced'},
+//      {id:'abc3', name: 'React JS'}
+//    ]
+//  }
+
+//     render() {
+//         return (
+//             <div className="App">
+//             {this.state.posts.map(post => (<h2 key ={post.id}>{post.name}</h2>))}
+//             </div>
+//         );
+//     }
+// }
+// class App extends React.Component {
+//     state = {
+//         count: 0,
+//         isCounting: false,
+//     };
+//   handleStart = () => {this.timerId = setInterval(() => {
+//     this.setState((prevState) => ({ count: prevState.count + 1, isCounting: true }),)
+//   }, 1000)}
+  
+//   handleStop = () => {
+//     clearInterval(this.timerId);
+//     this.setState({isCounting: false})
+//   }
+//   handleReset = () => {
+//     this.setState({ count: 0, isCounting: false });
+//      clearInterval(this.timerId);
+ 
+//   }
+//   componentDidMount() {
+//     let data = localStorage.getItem('count')
+  
+//     if (data) {
+//        this.setState({ count: +data })
+//        console.log(data)
+//     }
+   
+    
+//   }
+  
+
+//   componentDidUpdate() {
+//     localStorage.setItem('count', `${this.state.count}`)
+      
+//     }
+
+//   componentWillUnmount() {
+//     clearInterval(this.timerId);
+    
+//     }
+
+//     render() {
+//         return (
+//             <div className="App">
+//                 <h1>React Timer</h1>
+//                 <h3>{this.state.count}</h3>
+//                 {!this.state.isCounting ? (
+//                     <button onClick={this.handleStart}>Start</button>
+//                 ) : (
+//                     <button onClick={this.handleStop}>Stop</button>
+//                 )}
+//                 <button onClick={this.handleReset}>Reset</button>
+//             </div>
+//         );
+//     }
+// }
 // class App extends React.Component {
  
 //     state = {
