@@ -1,67 +1,92 @@
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import { Context } from './Hooks/Context';
+import { Posts } from './components/Posts';
+
+export default function App() {
+  return <Context></Context>;
+}
+// import React, { useEffect, useState, useRef } from 'react';
+// function setDefaultValue() {
+//   const userCount = localStorage.getItem('count');
+//   return userCount ? +userCount : 0;
+// }
+// export default function App() {
+//   const [count, setCount] = useState(setDefaultValue());
+//   const [isCounting, setIsCounting] = useState(false);
+//   const timerIdRef = useRef(null);
+
+//   const handleReset = () => {
+//     setCount(0);
+//     setIsCounting(false);
+//   };
+
+//   const handleStart = () => {
+//     setIsCounting(true);
+//   };
+
+//   const handleStop = () => {
+//     setIsCounting(false);
+//   };
+//   useEffect(() => {
+//     localStorage.setItem('count', count);
+//   }, [count]);
+
+//   useEffect(() => {
+//     if (isCounting) {
+//       timerIdRef.current = setInterval(() => {
+//         setCount(prevCount => prevCount + 1);
+//       }, 1000);
+//     }
+//     return () => {
+//       timerIdRef.current && clearInterval(timerIdRef.current);
+//       timerIdRef.current = null;
+//     };
+//   }, [isCounting]);
+
+//   return (
+//     <div className="App">
+//       <h1>React Timer</h1>
+//       <h3>{count}</h3>
+//       {!isCounting ? (
+//         <button onClick={handleStart}>Start</button>
+//       ) : (
+//         <button onClick={handleStop}>Stop</button>
+//       )}
+//       <button onClick={handleReset}>Reset</button>
+//     </div>
+//   );
+// }
+
+// import React, { useState, useEffect } from 'react';
+// import Clicker from './components/Clicker';
+
+// function App() {
+//   const [isClicker, setClicker] = useState(false);
+
+//   return (
+//     <div className="App">
+//       <h2>React App</h2>
+//       <button onClick={() => setClicker(!isClicker)}>Toggle Clicker</button>
+//       {isClicker && <Clicker />}
+//     </div>
+//   );
+// }
+
+// export default App;
 
 // don't change the Component name "App"
-export default class App extends React.Component {
-  constructor(props) {
-    super(props)
-      this.state = {
-        email: '',
-        isAgreeWithTerms: false,
-    };
-  }
-    handleChange = (event) => {
-this.setState({[event.target.name]: event.target.value})
-    }
-     validateEmail = () => {
-        if ( !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email))
-  {
-    alert('invalid email')
-        } 
-     }
-     handleCheckboxChange = (event) => {
-    this.setState({[event.target.name]: event.target.checked})
-     }
-  handleSubmit = () => {
-    if (!this.state.isAgreeWithTerms) {
-      alert('you should accept all agreements')
-      return
-    }
-    alert('thank you for your subscription')
-  }
-  
-  render() {
-    
-    // TODO: implement component
-    const { email, isAgreeWithTerms } = this.state;
+// export default function App() {
+//   const [count, setCount] = useState(0);
+//   const increment = () => {
+//     setCount(count + 1);
+//   };
+//   return (
+//     <div className="App">
+//       <button onClick={increment}>{count}</button>
+//     </div>
+//   );
+// }
 
-    
-
-        return (
-            <div>
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="email"
-              value={email}
-              onChange={this.handleChange}
-              onBlur={this.validateEmail}
-                />
-                <br />
-                <label>
-                    <input
-                        type="checkbox"
-                        name="isAgreeWithTerms"
-                checked={isAgreeWithTerms}
-                onChange={this.handleCheckboxChange}
-                    />
-                    I agree with terms and conditions
-                </label>
-                <br />
-                <button onClick={this.handleSubmit}>Send</button>
-            </div>
-        );
-  }
-}
 // class App extends React.Component {
 //   state = {
 //     posts: [
@@ -75,7 +100,6 @@ this.setState({[event.target.name]: event.target.value})
 //     // console.log('App.jsx setState update')
 //   }
 
- 
 //   render() {
 //      const { posts } = this.state
 //     return (
@@ -108,7 +132,7 @@ this.setState({[event.target.name]: event.target.value})
 //   handleStart = () => {this.timerId = setInterval(() => {
 //     this.setState((prevState) => ({ count: prevState.count + 1, isCounting: true }),)
 //   }, 1000)}
-  
+
 //   handleStop = () => {
 //     clearInterval(this.timerId);
 //     this.setState({isCounting: false})
@@ -116,28 +140,26 @@ this.setState({[event.target.name]: event.target.value})
 //   handleReset = () => {
 //     this.setState({ count: 0, isCounting: false });
 //      clearInterval(this.timerId);
- 
+
 //   }
 //   componentDidMount() {
 //     let data = localStorage.getItem('count')
-  
+
 //     if (data) {
 //        this.setState({ count: +data })
 //        console.log(data)
 //     }
-   
-    
+
 //   }
-  
 
 //   componentDidUpdate() {
 //     localStorage.setItem('count', `${this.state.count}`)
-      
+
 //     }
 
 //   componentWillUnmount() {
 //     clearInterval(this.timerId);
-    
+
 //     }
 
 //     render() {
@@ -156,26 +178,25 @@ this.setState({[event.target.name]: event.target.value})
 //     }
 // }
 // class App extends React.Component {
- 
+
 //     state = {
 //       posts: 0,
 //       loading: true,
 //       comments: []
-      
+
 //     }
-  
-  
+
 // //fetch posts
 //   componentDidMount() {
 //     fetch('https://jsonplaceholder.typicode.com/posts').then(response => response.json()).then(data => this.setState({ posts: data, loading: false }))
-    
+
 //     this.timerId = setInterval(() => {
 //        fetch('https://jsonplaceholder.typicode.com/comments').then(response=> response.json()).then(data => this.setState({comments: data, }))
 //     }, 5000)
 //     console.log(`mount`)
 //   }
 //   componentDidUpdate() {
-    
+
 //     console.log(`update`)
 //   }
 //   componentWillUnmount() {
@@ -193,22 +214,20 @@ this.setState({[event.target.name]: event.target.value})
 
 // }
 // class App extends React.Component {
- 
+
 //     state = {
 //       count: 0,
-      
+
 //     }
-  
+
 //   //s4et4ik s  + - knopkoy
 //   plusClick = () => {
 //     this.setState((prevState)=>({count:prevState.count +1}))
-  
-    
+
 //   }
 //   minusClick = () => {
 //     this.setState((prevState)=>({count:prevState.count -1}))
-  
-    
+
 //   }
 //   consoleClick = () => {
 //     console.log(this.state.count)
@@ -219,7 +238,7 @@ this.setState({[event.target.name]: event.target.value})
 //       Hello
 //       <button onClick={this.plusClick}>+</button>
 //       <button onClick={this.consoleClick}>{this.state.count}</button>
-      
+
 //       <button onClick = {this.minusClick}>-</button>
 //     </div>
 //   );
@@ -227,12 +246,12 @@ this.setState({[event.target.name]: event.target.value})
 
 // }
 // class App extends React.Component {
- 
+
 //     state = {
 //       count: 0,
-      
+
 //     }
-  
+
 //   //s4et4ik s vizovom funcii
 //   handleClick = () => {
 //     this.setState((prevState)=>({count:prevState.count +1}),()=>{console.log(`setState complete`)})
